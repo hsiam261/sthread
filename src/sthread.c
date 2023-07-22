@@ -76,7 +76,7 @@ void sthread_create(sthread_t* thread, sthread_attr* thread_attr, void * (*func)
 	int clone_flags = (CLONE_VM | CLONE_THREAD | CLONE_SIGHAND | 
 			CLONE_FILES | CLONE_FS | CLONE_PARENT_SETTID | 
 			CLONE_CHILD_CLEARTID);
-	printf("%p\n", stack_ptr+thread_attr->stack_size);
+
 	struct clone_args cl_args = {
 		.flags = clone_flags,
 		.child_tid = (__u64)&(tcb->tid),
@@ -84,9 +84,6 @@ void sthread_create(sthread_t* thread, sthread_attr* thread_attr, void * (*func)
 		.stack = (__u64)(stack_ptr),
 		.stack_size = thread_attr->stack_size
 	};
-
-	printf("Here\n");
-	fflush(stdout);
 
 	pid_t pid;
 	
@@ -122,7 +119,6 @@ void sthread_create(sthread_t* thread, sthread_attr* thread_attr, void * (*func)
 		printf("Oh man %d\n",pid);
 	}
 
-	printf("Here2\n");
 }
 
 int sthread_join(sthread_t thread, void** ret_val) {
