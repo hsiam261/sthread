@@ -88,14 +88,14 @@ void sthread_create(sthread_t* thread, sthread_attr* thread_attr, void * (*func)
 	pid_t pid;
 	
 	__asm__ volatile(
-		"movq %6, %%rbx\n\t"    // start thread func (wrapper over func)
-		"movq %3, %%r12\n\t"    // start thread func ARGUMENT 0: func
-		"movq %7, %%r13\n\t"    // start thread func ARGUMENT 1: args
-		"movq %8, %%r14\n\t"	// start thread func ARGUMENT 2: tcb 
+		"movq %5, %%rbx\n\t"    // start thread func (wrapper over func)
+		"movq %2, %%r12\n\t"    // start thread func ARGUMENT 0: func
+		"movq %6, %%r13\n\t"    // start thread func ARGUMENT 1: args
+		"movq %7, %%r14\n\t"	// start thread func ARGUMENT 2: tcb 
 		"movq $0, %%rax\n\t"
 		"mov %1, %%eax\n\t"     // SYSTEM CALL NUMBER : SYS_clone3
-		"movq %4, %%rdi\n\t"    // zeroth argument to clone3: &cl_args
-		"movq %5, %%rsi\n\t"    // first argument to clone3: sizeof(cl_args) 
+		"movq %3, %%rdi\n\t"    // zeroth argument to clone3: &cl_args
+		"movq %4, %%rsi\n\t"    // first argument to clone3: sizeof(cl_args) 
 		"syscall\n\t"		// Linux/amd64 system call */
 		"testq %%rax,%%rax\n\t"	// check return value */
 		"jne 1f\n\t"		// jump if parent */
@@ -105,7 +105,7 @@ void sthread_create(sthread_t* thread, sthread_attr* thread_attr, void * (*func)
 		"callq *%%rbx\n\t"	// start subthread function */
 		"1:\t"
 		:"=a" (pid)
-		:"i" (SYS_clone3),"i" (__NR_exit),
+		:"i" (SYS_clone3),
 		"r" (func),
 		"r" (&cl_args),
 		"r" (sizeof(cl_args)),
