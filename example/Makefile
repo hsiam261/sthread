@@ -1,6 +1,6 @@
 CC := gcc
 LDFLAGS := -L../build -Wl,-rpath,../build/
-CFLAGS := -Wall -Wextra -I../include 
+CFLAGS := -Wall -Wextra -I../include
 LDLIBS := -lsthread
 
 # Path to the source directory
@@ -28,4 +28,3 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 
 clean:
 	rm -f $(TARGETS) $(OBJ_FILES)
-
