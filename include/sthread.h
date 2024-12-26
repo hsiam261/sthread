@@ -15,7 +15,7 @@ typedef struct sthread {
 	uint32_t lock;
 	uint64_t tid;
 	int pidfd;
-	sthread_attr thread_attributes; 
+	sthread_attr thread_attributes;
 } sthread;
 
 typedef sthread* sthread_t;

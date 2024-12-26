@@ -9,4 +9,3 @@ int sthread_join(sthread_t thread, void** ret_val) {
 	if(ret_val) *ret_val = thread->result;
 	return thread->return_value;
 }
-

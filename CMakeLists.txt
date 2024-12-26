@@ -25,4 +25,3 @@ install(TARGETS sthread
 
 # Install the header files
 install(DIRECTORY include/ DESTINATION include)
-

@@ -20,5 +20,3 @@ void* allocate_stack(sthread_attr* thread_attr) {
 	thread_attr->stack_ptr = stack_ptr;
 	return stack_ptr;
 }
-
-
