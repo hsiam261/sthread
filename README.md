@@ -16,3 +16,6 @@ make
 ```
 
 After that simply run the executable you want to test. For example to run the `hello-world.c` example simply just use `./hello-world.out` command on your shell.
+
+# Setting Up DevShell
+If nix is installed and flakes are enabled, you can jump directly into a dev shell using `nix develop` command.
