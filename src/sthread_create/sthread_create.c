@@ -27,8 +27,9 @@ int sthread_create(sthread_t* thread, sthread_attr* thread_attr, void * (*func)(
 	}
 
 	void* stack_ptr = allocate_stack(thread_attr);
-	*thread = stack_ptr;
 	sthread_t tcb = stack_ptr;
+	*thread = tcb;
+
 	tcb->lock = 0;
 	tcb->thread_attributes.stack_ptr = stack_ptr;
 	tcb->thread_attributes.stack_size = thread_attr->stack_size;
