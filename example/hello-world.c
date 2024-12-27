@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sthread.h>
+#include <errno.h>
 
 void* child_proc(void * args) {
 	printf("Hello World\n");
@@ -17,9 +18,18 @@ void* child_proc(void * args) {
 
 int main() {
 	sthread_t thread1, thread2;
-	sthread_create(&thread1, NULL, child_proc, NULL);
+	int ret = sthread_create(&thread1, NULL, child_proc, NULL);
+	if (ret !=0) {
+		perror("Error creating sthread\n");
+		exit(1);
+	}
 	sthread_join(thread1, NULL);
-	sthread_create(&thread2, NULL, child_proc, NULL);
+
+	ret = sthread_create(&thread2, NULL, child_proc, NULL);
+	if (ret !=0) {
+		perror("Error creating sthread\n");
+		exit(1);
+	}
 	sthread_join(thread2, NULL);
 	return 0;
 }
