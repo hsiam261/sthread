@@ -3,7 +3,7 @@
 
 #include "../common/defaults.h"
 
-void* allocate_stack(sthread_attr* thread_attr) {
+void* allocate_stack(const sthread_attr* thread_attr) {
 	if(thread_attr == NULL) {
 		thread_attr = &default_sthread_attr;
 	}
