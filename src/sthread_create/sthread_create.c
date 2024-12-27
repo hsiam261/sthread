@@ -30,6 +30,8 @@ int sthread_create(sthread_t* thread, sthread_attr* thread_attr, void * (*func)(
 	*thread = stack_ptr;
 	sthread_t tcb = stack_ptr;
 	tcb->lock = 0;
+	tcb->thread_attributes.stack_ptr = stack_ptr;
+	tcb->thread_attributes.stack_size = thread_attr->stack_size;
 
 	int clone_flags = (CLONE_VM | CLONE_THREAD | CLONE_SIGHAND |
 			CLONE_FILES | CLONE_FS | CLONE_PARENT_SETTID |
