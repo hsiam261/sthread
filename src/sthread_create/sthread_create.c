@@ -9,7 +9,7 @@
 #include "../common/defaults.h"
 #include "../stack/stack.h"
 
-static void thread_done(sthread_t tcb, int ret_val) {
+static void thread_done(sthread_t tcb, void* ret_val) {
 	tcb->lock = 1;
 	tcb->return_value = ret_val;
 	syscall(SYS_futex, &tcb->lock, FUTEX_WAKE, INT_MAX, NULL, NULL, 0);
@@ -17,8 +17,8 @@ static void thread_done(sthread_t tcb, int ret_val) {
 }
 
 static void thread_func_wrapper(void *(*func)(void *), void * args, sthread_t tcb) {
-	func(args);
-	thread_done(tcb, 0);
+	void* ret = func(args);
+	thread_done(tcb, ret);
 }
 
 int sthread_create(sthread_t* thread, sthread_attr* thread_attr, void * (*func)(void *), void* args) {
