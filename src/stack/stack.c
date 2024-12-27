@@ -15,3 +15,7 @@ void* allocate_stack(const sthread_attr* thread_attr) {
 
 	return stack_ptr;
 }
+
+int deallocate_stack(const sthread_attr* thread_attr) {
+	return munmap(thread_attr->stack_ptr, thread_attr->stack_size);
+}

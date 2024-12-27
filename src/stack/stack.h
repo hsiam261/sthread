@@ -5,4 +5,6 @@
 
 void* allocate_stack(const sthread_attr* thread_attr);
 
+int deallocate_stack(const sthread_attr* thread_attr);
+
 #endif
